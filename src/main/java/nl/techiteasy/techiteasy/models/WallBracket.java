@@ -1,9 +1,9 @@
 package nl.techiteasy.techiteasy.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "wall_brackets")
@@ -15,6 +15,9 @@ public class WallBracket {
     private Boolean adjustable;
     private String name;
     private Double price;
+
+    @ManyToMany(mappedBy = "wallbracket")
+    List<Television> televisions = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -54,5 +57,13 @@ public class WallBracket {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public List<Television> getTelevisions() {
+        return televisions;
+    }
+
+    public void setTelevisions(List<Television> televisions) {
+        this.televisions = televisions;
     }
 }

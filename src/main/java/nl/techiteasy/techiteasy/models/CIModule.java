@@ -15,7 +15,7 @@ public class CIModule {
     private String type;
     private Double price;
 
-    @OneToMany(mappedBy = "ciModule")
+    @OneToMany(mappedBy = "ci_module")
     List<Television> televisions = new ArrayList<>();
 
     public Long getId() {

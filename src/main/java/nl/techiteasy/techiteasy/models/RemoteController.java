@@ -15,7 +15,7 @@ public class RemoteController {
     private Double price;
     private Integer originalStock;
 
-    @OneToOne(mappedBy = "remoteController")
+    @OneToOne(mappedBy = "remote_controller")
     Television television;
 
     public Long getId() {

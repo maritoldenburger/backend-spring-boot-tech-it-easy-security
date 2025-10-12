@@ -2,6 +2,9 @@ package nl.techiteasy.techiteasy.models;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "televisions")
 public class Television {
@@ -32,6 +35,14 @@ public class Television {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ci_module_id")
     CIModule ciModule;
+
+    @ManyToMany
+    @JoinTable(
+            name = "television_wallbrackets",
+            joinColumns = @JoinColumn(name = "television_id"),
+            inverseJoinColumns = @JoinColumn(name = "wallbracket_id")
+    )
+    private List<WallBracket> wallBrackets = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -183,5 +194,13 @@ public class Television {
 
     public void setCiModule(CIModule ciModule) {
         this.ciModule = ciModule;
+    }
+
+    public List<WallBracket> getWallBrackets() {
+        return wallBrackets;
+    }
+
+    public void setWallBrackets(List<WallBracket> wallBrackets) {
+        this.wallBrackets = wallBrackets;
     }
 }

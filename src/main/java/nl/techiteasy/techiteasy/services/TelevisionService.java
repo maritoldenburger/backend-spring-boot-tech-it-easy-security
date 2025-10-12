@@ -5,9 +5,11 @@ import nl.techiteasy.techiteasy.dtos.TelevisionInputDto;
 import nl.techiteasy.techiteasy.exceptions.RecordNotFoundException;
 import nl.techiteasy.techiteasy.mappers.TelevisionMapper;
 import nl.techiteasy.techiteasy.models.Television;
+import nl.techiteasy.techiteasy.models.WallBracket;
 import nl.techiteasy.techiteasy.repositories.CIModuleRepository;
 import nl.techiteasy.techiteasy.repositories.RemoteControllerRepository;
 import nl.techiteasy.techiteasy.repositories.TelevisionRepository;
+import nl.techiteasy.techiteasy.repositories.WallBracketRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,12 +24,16 @@ public class TelevisionService {
 
     private final CIModuleRepository ciModuleRepository;
 
+    private final WallBracketRepository wallBracketRepository;
+
     public TelevisionService(TelevisionRepository televisionRepository,
                              RemoteControllerRepository remoteControllerRepository,
-                             CIModuleRepository ciModuleRepository) {
+                             CIModuleRepository ciModuleRepository,
+                             WallBracketRepository wallBracketRepository) {
         this.televisionRepository = televisionRepository;
         this.remoteControllerRepository = remoteControllerRepository;
         this.ciModuleRepository = ciModuleRepository;
+        this.wallBracketRepository = wallBracketRepository;
     }
 
     public List<TelevisionDto> getTelevisions() {
@@ -101,6 +107,17 @@ public class TelevisionService {
                 .orElseThrow(() -> new RecordNotFoundException("CIModule " + ciModuleId + " not found"));
 
         television.setCiModule(ciModule);
+        televisionRepository.save(television);
+    }
+
+    public void assignWallBracketToTelevision(Long televisionId, Long wallBracketId) {
+        Television television = televisionRepository.findById(televisionId)
+                .orElseThrow(() -> new RecordNotFoundException("Television " + televisionId + " not found"));
+
+        WallBracket wallBracket = wallBracketRepository.findById(wallBracketId)
+                .orElseThrow(() -> new RecordNotFoundException("WallBracket " + wallBracketId + " not found"));
+
+        television.getWallBrackets().add(wallBracket);
         televisionRepository.save(television);
     }
 }
