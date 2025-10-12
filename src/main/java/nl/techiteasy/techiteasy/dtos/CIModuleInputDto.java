@@ -18,4 +18,16 @@ public class CIModuleInputDto {
     @NotNull
     @Positive
     public Double price;
+
+    public @NotBlank @Size(min = 3, max = 128) String getName() {
+        return name;
+    }
+
+    public @NotBlank @Size(min = 3, max = 128) String getType() {
+        return type;
+    }
+
+    public @NotNull @Positive Double getPrice() {
+        return price;
+    }
 }

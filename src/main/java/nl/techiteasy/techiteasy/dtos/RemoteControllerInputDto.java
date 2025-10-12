@@ -25,4 +25,28 @@ public class RemoteControllerInputDto {
     @NotNull
     @PositiveOrZero
     public Integer originalStock;
+
+    public @NotBlank String getCompatibleWith() {
+        return compatibleWith;
+    }
+
+    public @NotBlank String getBatteryType() {
+        return batteryType;
+    }
+
+    public @NotBlank @Size(min = 3, max = 128) String getName() {
+        return name;
+    }
+
+    public @NotBlank @Size(min = 3, max = 128) String getBrand() {
+        return brand;
+    }
+
+    public @NotNull @Positive Double getPrice() {
+        return price;
+    }
+
+    public @NotNull @PositiveOrZero Integer getOriginalStock() {
+        return originalStock;
+    }
 }

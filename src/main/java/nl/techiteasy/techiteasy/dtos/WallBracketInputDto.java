@@ -21,4 +21,20 @@ public class WallBracketInputDto {
     @NotNull
     @Positive
     public Double price;
+
+    public @NotBlank @Size(min = 3, max = 128) String getSize() {
+        return size;
+    }
+
+    public @NotNull Boolean getAdjustable() {
+        return adjustable;
+    }
+
+    public @NotBlank @Size(min = 3, max = 128) String getName() {
+        return name;
+    }
+
+    public @NotNull @Positive Double getPrice() {
+        return price;
+    }
 }

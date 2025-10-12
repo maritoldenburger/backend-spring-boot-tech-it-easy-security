@@ -10,7 +10,7 @@
     </parent>
     <groupId>nl.techiteasy</groupId>
     <artifactId>TechItEasy</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>TechItEasy</name>
     <description>TechItEasy</description>
     <url/>

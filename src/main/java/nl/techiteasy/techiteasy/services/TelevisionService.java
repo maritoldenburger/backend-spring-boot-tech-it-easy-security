@@ -27,11 +27,11 @@ public class TelevisionService {
 
     public List<TelevisionDto> getTelevisions() {
         List<Television> televisions = televisionRepository.findAll();
-        List<TelevisionDto> dtos = new ArrayList<>();
+        List<TelevisionDto> dtoTelevisions = new ArrayList<>();
         for (Television tv : televisions) {
-            dtos.add(TelevisionMapper.toTelevisionDto(tv));
+            dtoTelevisions.add(TelevisionMapper.toTelevisionDto(tv));
         }
-        return dtos;
+        return dtoTelevisions;
     }
 
     public TelevisionDto getTelevision(Long id) {
@@ -50,26 +50,25 @@ public class TelevisionService {
         Television existingTelevision = televisionRepository.findById(id)
                 .orElseThrow(() -> new RecordNotFoundException("Television " + id + " not found"));
 
-        existingTelevision.setType(inputDto.getType());
-        existingTelevision.setBrand(inputDto.getBrand());
-        existingTelevision.setName(inputDto.getName());
-        existingTelevision.setPrice(inputDto.getPrice());
-        existingTelevision.setAvailableSize(inputDto.getAvailableSize());
-        existingTelevision.setRefreshRate(inputDto.getRefreshRate());
-        existingTelevision.setScreenType(inputDto.getScreenType());
-        existingTelevision.setScreenQuality(inputDto.getScreenQuality());
-        existingTelevision.setSmartTv(inputDto.isSmartTv());
-        existingTelevision.setWifi(inputDto.isWifi());
-        existingTelevision.setVoiceControl(inputDto.isVoiceControl());
-        existingTelevision.setHdr(inputDto.isHdr());
-        existingTelevision.setBluetooth(inputDto.isBluetooth());
-        existingTelevision.setAmbiLight(inputDto.isAmbiLight());
-        existingTelevision.setOriginalStock(inputDto.getOriginalStock());
-        existingTelevision.setSold(inputDto.getSold());
+        existingTelevision.setType(inputDto.type);
+        existingTelevision.setBrand(inputDto.brand);
+        existingTelevision.setName(inputDto.name);
+        existingTelevision.setPrice(inputDto.price);
+        existingTelevision.setAvailableSize(inputDto.availableSize);
+        existingTelevision.setRefreshRate(inputDto.refreshRate);
+        existingTelevision.setScreenType(inputDto.screenType);
+        existingTelevision.setScreenQuality(inputDto.screenQuality);
+        existingTelevision.setSmartTv(inputDto.smartTv);
+        existingTelevision.setWifi(inputDto.wifi);
+        existingTelevision.setVoiceControl(inputDto.voiceControl);
+        existingTelevision.setHdr(inputDto.hdr);
+        existingTelevision.setBluetooth(inputDto.bluetooth);
+        existingTelevision.setAmbiLight(inputDto.ambiLight);
+        existingTelevision.setOriginalStock(inputDto.originalStock);
+        existingTelevision.setSold(inputDto.sold);
 
         Television updated = televisionRepository.save(existingTelevision);
         return TelevisionMapper.toTelevisionDto(updated);
-
     }
 
     public void deleteTelevision(Long id) {
