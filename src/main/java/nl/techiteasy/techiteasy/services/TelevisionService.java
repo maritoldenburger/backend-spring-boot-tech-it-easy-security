@@ -5,6 +5,7 @@ import nl.techiteasy.techiteasy.dtos.TelevisionInputDto;
 import nl.techiteasy.techiteasy.exceptions.RecordNotFoundException;
 import nl.techiteasy.techiteasy.mappers.TelevisionMapper;
 import nl.techiteasy.techiteasy.models.Television;
+import nl.techiteasy.techiteasy.repositories.CIModuleRepository;
 import nl.techiteasy.techiteasy.repositories.RemoteControllerRepository;
 import nl.techiteasy.techiteasy.repositories.TelevisionRepository;
 import org.springframework.stereotype.Service;
@@ -19,10 +20,14 @@ public class TelevisionService {
 
     private final RemoteControllerRepository remoteControllerRepository;
 
+    private final CIModuleRepository ciModuleRepository;
+
     public TelevisionService(TelevisionRepository televisionRepository,
-                             RemoteControllerRepository remoteControllerRepository) {
+                             RemoteControllerRepository remoteControllerRepository,
+                             CIModuleRepository ciModuleRepository) {
         this.televisionRepository = televisionRepository;
         this.remoteControllerRepository = remoteControllerRepository;
+        this.ciModuleRepository = ciModuleRepository;
     }
 
     public List<TelevisionDto> getTelevisions() {
@@ -85,6 +90,17 @@ public class TelevisionService {
                 .orElseThrow(() -> new RecordNotFoundException("RemoteController " + remoteControllerId + " not found"));
 
         television.setRemoteController(remoteController);
+        televisionRepository.save(television);
+    }
+
+    public void assignCiModuleToTelevision(Long televisionId, Long ciModuleId) {
+        var television = televisionRepository.findById(televisionId)
+                .orElseThrow(() -> new RecordNotFoundException("Television " + televisionId + " not found"));
+
+        var ciModule = ciModuleRepository.findById(ciModuleId)
+                .orElseThrow(() -> new RecordNotFoundException("CIModule " + ciModuleId + " not found"));
+
+        television.setCiModule(ciModule);
         televisionRepository.save(television);
     }
 }

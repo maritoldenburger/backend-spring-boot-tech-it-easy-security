@@ -29,6 +29,10 @@ public class Television {
     @JoinColumn(name = "remote_controller_id")
     RemoteController remoteController;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ci_module_id")
+    CIModule ciModule;
+
     public Long getId() {
         return id;
     }
@@ -171,5 +175,13 @@ public class Television {
 
     public void setRemoteController(RemoteController remoteController) {
         this.remoteController = remoteController;
+    }
+
+    public CIModule getCiModule() {
+        return ciModule;
+    }
+
+    public void setCiModule(CIModule ciModule) {
+        this.ciModule = ciModule;
     }
 }
