@@ -21,5 +21,5 @@ public class TelevisionDto {
     public Integer sold;
     public RemoteControllerDto remoteController;
     public CIModuleDto ciModuleDto;
-    public WallBracketDto wallBracketdto;
+    public WallBracketDto wallBracketDto;
 }

@@ -16,7 +16,7 @@ public class WallBracket {
     private String name;
     private Double price;
 
-    @ManyToMany(mappedBy = "wallbracket")
+    @ManyToMany(mappedBy = "wallBrackets")
     List<Television> televisions = new ArrayList<>();
 
     public Long getId() {
