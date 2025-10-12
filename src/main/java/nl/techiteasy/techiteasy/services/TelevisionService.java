@@ -14,14 +14,14 @@ import java.util.List;
 @Service
 public class TelevisionService {
 
-    private final TelevisionRepository repos;
+    private final TelevisionRepository televisionRepository;
 
-    public TelevisionService(TelevisionRepository repos) {
-        this.repos = repos;
+    public TelevisionService(TelevisionRepository televisionRepository) {
+        this.televisionRepository = televisionRepository;
     }
 
     public List<TelevisionDto> getTelevisions() {
-        List<Television> televisions = repos.findAll();
+        List<Television> televisions = televisionRepository.findAll();
         List<TelevisionDto> dtos = new ArrayList<>();
         for (Television tv : televisions) {
             dtos.add(TelevisionMapper.toTelevisionDto(tv));
@@ -30,19 +30,19 @@ public class TelevisionService {
     }
 
     public TelevisionDto getTelevision(Long id) {
-        Television television = repos.findById(id)
+        Television television = televisionRepository.findById(id)
                 .orElseThrow(() -> new RecordNotFoundException("Television " + id + " not found"));
         return TelevisionMapper.toTelevisionDto(television);
     }
 
     public TelevisionDto saveTelevision(TelevisionInputDto inputDto) {
         Television television = TelevisionMapper.toTelevision(inputDto);
-        Television saved = repos.save(television);
+        Television saved = televisionRepository.save(television);
         return TelevisionMapper.toTelevisionDto(saved);
     }
 
     public TelevisionDto updateTelevision(Long id, TelevisionInputDto inputDto) {
-        Television existingTelevision = repos.findById(id)
+        Television existingTelevision = televisionRepository.findById(id)
                 .orElseThrow(() -> new RecordNotFoundException("Television " + id + " not found"));
 
         existingTelevision.setType(inputDto.getType());
@@ -62,14 +62,14 @@ public class TelevisionService {
         existingTelevision.setOriginalStock(inputDto.getOriginalStock());
         existingTelevision.setSold(inputDto.getSold());
 
-        Television updated = repos.save(existingTelevision);
+        Television updated = televisionRepository.save(existingTelevision);
         return TelevisionMapper.toTelevisionDto(updated);
 
     }
 
     public void deleteTelevision(Long id) {
-        Television existingTelevision = repos.findById(id)
+        Television existingTelevision = televisionRepository.findById(id)
                 .orElseThrow(() -> new RecordNotFoundException("Television " + id + " not found"));
-        repos.delete(existingTelevision);
+        televisionRepository.delete(existingTelevision);
     }
 }
