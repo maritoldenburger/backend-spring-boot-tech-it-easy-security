@@ -1,9 +1,6 @@
 package nl.techiteasy.techiteasy.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "remote_controllers")
@@ -17,6 +14,9 @@ public class RemoteController {
     private String brand;
     private Double price;
     private Integer originalStock;
+
+    @OneToOne(mappedBy = "remoteController")
+    Television television;
 
     public Long getId() {
         return id;
@@ -72,5 +72,13 @@ public class RemoteController {
 
     public void setOriginalStock(Integer originalStock) {
         this.originalStock = originalStock;
+    }
+
+    public Television getTelevision() {
+        return television;
+    }
+
+    public void setTelevision(Television television) {
+        this.television = television;
     }
 }

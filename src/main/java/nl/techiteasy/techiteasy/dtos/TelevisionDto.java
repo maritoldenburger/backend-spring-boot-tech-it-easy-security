@@ -19,6 +19,7 @@ public class TelevisionDto {
     public boolean ambiLight;
     public Integer originalStock;
     public Integer sold;
+    public RemoteControllerDto remoteController;
 
     public Long getId() {
         return id;

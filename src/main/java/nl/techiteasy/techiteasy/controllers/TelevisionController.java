@@ -1,5 +1,6 @@
 package nl.techiteasy.techiteasy.controllers;
 
+import nl.techiteasy.techiteasy.dtos.IdInputDto;
 import nl.techiteasy.techiteasy.dtos.TelevisionDto;
 import nl.techiteasy.techiteasy.dtos.TelevisionInputDto;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +41,13 @@ public class TelevisionController {
     public ResponseEntity<TelevisionDto> updateTelevision(@PathVariable Long id, @RequestBody TelevisionInputDto inputDto) {
         TelevisionDto updatedDto = service.updateTelevision(id, inputDto);
         return ResponseEntity.ok(updatedDto);
+    }
+
+    @PutMapping("/televisions/{id}/remotecontroller")
+    public ResponseEntity<Void> assignRemoteControllerToTelevision(@PathVariable Long televisionId, @RequestBody IdInputDto remoteControllerIdInput) {
+        service.assignRemoteControllerToTelevision(televisionId, remoteControllerIdInput.id);
+
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")

@@ -5,6 +5,7 @@ import nl.techiteasy.techiteasy.dtos.TelevisionInputDto;
 import nl.techiteasy.techiteasy.exceptions.RecordNotFoundException;
 import nl.techiteasy.techiteasy.mappers.TelevisionMapper;
 import nl.techiteasy.techiteasy.models.Television;
+import nl.techiteasy.techiteasy.repositories.RemoteControllerRepository;
 import nl.techiteasy.techiteasy.repositories.TelevisionRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +17,12 @@ public class TelevisionService {
 
     private final TelevisionRepository televisionRepository;
 
-    public TelevisionService(TelevisionRepository televisionRepository) {
+    private final RemoteControllerRepository remoteControllerRepository;
+
+    public TelevisionService(TelevisionRepository televisionRepository,
+                             RemoteControllerRepository remoteControllerRepository) {
         this.televisionRepository = televisionRepository;
+        this.remoteControllerRepository = remoteControllerRepository;
     }
 
     public List<TelevisionDto> getTelevisions() {
@@ -71,5 +76,16 @@ public class TelevisionService {
         Television existingTelevision = televisionRepository.findById(id)
                 .orElseThrow(() -> new RecordNotFoundException("Television " + id + " not found"));
         televisionRepository.delete(existingTelevision);
+    }
+
+    public void assignRemoteControllerToTelevision(Long televisionId, Long remoteControllerId) {
+        var television = televisionRepository.findById(televisionId)
+                .orElseThrow(() -> new RecordNotFoundException("Television " + televisionId + " not found"));
+
+        var remoteController = remoteControllerRepository.findById(remoteControllerId)
+                .orElseThrow(() -> new RecordNotFoundException("RemoteController " + remoteControllerId + " not found"));
+
+        television.setRemoteController(remoteController);
+        televisionRepository.save(television);
     }
 }

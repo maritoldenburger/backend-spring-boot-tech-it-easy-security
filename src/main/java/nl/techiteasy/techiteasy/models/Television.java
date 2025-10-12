@@ -1,9 +1,6 @@
 package nl.techiteasy.techiteasy.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "televisions")
@@ -27,6 +24,10 @@ public class Television {
     private boolean ambiLight;
     private Integer originalStock;
     private Integer sold;
+
+    @OneToOne
+    @JoinColumn(name = "remote_controller_id")
+    RemoteController remoteController;
 
     public Television() {
     }
@@ -184,5 +185,13 @@ public class Television {
 
     public void setSold(Integer sold) {
         this.sold = sold;
+    }
+
+    public RemoteController getRemoteController() {
+        return remoteController;
+    }
+
+    public void setRemoteController(RemoteController remoteController) {
+        this.remoteController = remoteController;
     }
 }
