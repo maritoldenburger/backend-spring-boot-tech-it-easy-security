@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 
-/*TODO annotatie*/
 @Entity
 @IdClass(AuthorityKey.class)
 @Table(name = "authorities")
