@@ -63,7 +63,7 @@ public class UserService {
     public void updateUser(String username, UserDto newUser) {
         if (!userRepository.existsById(username)) throw new UsernameNotFoundException(username);
         User user = userRepository.findById(username).get();
-        user.setPassword(newUser.getPassword());
+        user.setPassword(encoder.encode(newUser.getPassword()));
         userRepository.save(user);
     }
 
